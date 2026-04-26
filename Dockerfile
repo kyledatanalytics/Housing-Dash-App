@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir \
     pandas-gbq \
     requests \
     google-cloud-bigquery \
-    pyarrow
+    pyarrow \
 
 # Copy your script into the container
 COPY la_house_rentcast_api_to_BQ_ETL.py .

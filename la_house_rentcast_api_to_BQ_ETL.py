@@ -1,6 +1,7 @@
 #%%
 import requests
 import json
+import os
 import pandas as pd
 import pandas_gbq 
 from google.cloud import bigquery
@@ -46,7 +47,6 @@ client = bigquery.Client(project=project_id)
 # else:
 #     print(f"Failed to fetch data. Status code: {response.status_code}")
 #     print(response.text)
-
 # %%
 #pull sales listing from API and save to staging table
 url = "https://api.rentcast.io/v1/listings/sale"
@@ -61,7 +61,7 @@ params = {
 # Replace 'YOUR_API_KEY' with your actual RentCast API key
 headers = {
     "Accept": "application/json",
-    "X-Api-Key": "ff96fd7f0b1a4170a82c78229c82e02c" 
+    "X-Api-Key": os.getenv("rentcast_api_key") 
 }
 
 # 3. Make the GET request
