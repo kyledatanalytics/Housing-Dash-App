@@ -20,7 +20,7 @@ url = "https://api.rentcast.io/v1/listings/sale"
 params = {
     "city": "Los Angeles",
     "state": "CA",
-    "limit": 1000,
+    "limit": 1000, 
     "offset": 500
 }
 
@@ -53,6 +53,7 @@ else:
 # %%
 df_sales['history'] = df_sales['history'].apply(lambda x: json.dumps(x) if x is not None else None)
 df_sales['builder'] = df_sales['builder'].apply(lambda x: json.dumps(x) if x is not None else None)
+df_sales['date_update'] = pd.Timestamp.now(tz="America/Los_Angeles")
 #%%
 #upload staging table to BQ 
 try:
@@ -103,3 +104,11 @@ except Exception as e:
 #     print(f"Data uploaded successfully to {target_table}")
 # except Exception as e:
 #     print(f"Error uploading data: {e}")
+#%%
+# query_add_date = f"""
+# UPDATE `{target_table}`
+# SET date_update = CURRENT_DATETIME("America/Los_Angeles")
+# WHERE TRUE;
+# """
+# client.query(query_add_date)
+#%%
