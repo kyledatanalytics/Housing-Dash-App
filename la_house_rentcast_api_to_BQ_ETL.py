@@ -14,39 +14,6 @@ dataset_id = 'la_housing'
 target_table = f"{project_id}.{dataset_id}.sales_listing"
 staging_table = f"{project_id}.{dataset_id}.sales_listing_staging"
 client = bigquery.Client(project=project_id)
-#%%
-# 1. Define the API endpoint and parameters
-# url = "https://api.rentcast.io/v1/properties"
-# params = {
-#     "city": "Los Angeles",
-#     "state": "CA",
-#     "limit": 100
-# }
-
-# # 2. Define the headers
-# # Replace 'YOUR_API_KEY' with your actual RentCast API key
-# headers = {
-#     "Accept": "application/json",
-#     "X-Api-Key": "ff96fd7f0b1a4170a82c78229c82e02c" 
-# }
-
-# # 3. Make the GET request
-# response = requests.get(url, params=params, headers=headers)
-
-# # 4. Check if the request was successful
-# if response.status_code == 200:
-#     data = response.json()
-    
-#     # 5. Convert JSON results into a pandas DataFrame
-#     # Note: RentCast usually returns a list of property objects
-#     df = pd.DataFrame(data)
-    
-#     # Display the first few rows
-#     print("Success! Here is the DataFrame preview:")
-#     print(df.head())
-# else:
-#     print(f"Failed to fetch data. Status code: {response.status_code}")
-#     print(response.text)
 # %%
 #pull sales listing from API and save to staging table
 url = "https://api.rentcast.io/v1/listings/sale"
