@@ -1,24 +1,18 @@
-# Use the slim version of 3.12 to keep the image size small
+# Use a lightweight Python image
 FROM python:3.12-slim
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Install system dependencies required for some python packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# Copy the requirements and install them
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install your Python libraries
-RUN pip install --no-cache-dir \
-    pandas \
-    pandas-gbq \
-    requests \
-    google-cloud-bigquery \
-    pyarrow
+# Copy your Streamlit app code
+COPY app.py .
 
-# Copy your script into the container
-COPY la_house_rentcast_api_to_BQ_ETL.py .
+# Expose the port Cloud Run expects
+EXPOSE 8080
 
-# Run the script
-CMD ["python", "la_house_rentcast_api_to_BQ_ETL.py"]
+# Command to run the Streamlit app
+CMD ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
