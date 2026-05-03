@@ -1,0 +1,8 @@
+streamlit
+google-cloud-bigquery
+pandas
+numpy
+folium
+requests
+plotly
+streamlit-folium
