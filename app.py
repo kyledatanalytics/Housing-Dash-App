@@ -57,6 +57,7 @@ def load_la_county_zip_geojson():
         "returnGeometry": "true",
         "f": "geojson",
         "outSR": "4326",
+        "maxAllowableOffset": "0.005"
     }
     features = []
     offset = 0
@@ -175,7 +176,7 @@ with plot1:
                 nan_fill_color="white",
             ).add_to(m)
 
-            st_folium(m, use_container_width=True, height=300)
+            st_folium(m, use_container_width=True, height=300,returned_objects=[])
     else:
         st.warning("No active listings with ZIP and price to map.")
 with plot2:
