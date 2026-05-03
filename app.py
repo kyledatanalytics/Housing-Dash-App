@@ -57,7 +57,7 @@ def load_la_county_zip_geojson():
         "returnGeometry": "true",
         "f": "geojson",
         "outSR": "4326",
-        "maxAllowableOffset": "0.005"
+        "maxAllowableOffset": "0.0005"
     }
     features = []
     offset = 0
