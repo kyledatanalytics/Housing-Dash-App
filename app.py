@@ -21,12 +21,22 @@ client = bigquery.Client()
 # preventing unnecessary BigQuery costs on UI refreshes.
 # ---------------------------------------------------------
 @st.cache_data(ttl=3600)  # Cache clears every hour
-def load_data(query_string):
+# def load_data(query_string):
+#     try:
+#         df = client.query(query_string).to_dataframe()
+#         return df
+#     except Exception as e:
+#         st.error(f"Error fetching data: {e}")
+#         return pd.DataFrame()
+
+def load_data():
     try:
-        df = client.query(query_string).to_dataframe()
+        # Read the highly compressed Parquet file directly from Cloud Storage
+        gcs_path = "gs://housing-app-494519-dashboard-data/sales_listing.parquet"
+        df = pd.read_parquet(gcs_path)
         return df
     except Exception as e:
-        st.error(f"Error fetching data: {e}")
+        st.error(f"Error fetching data from GCS: {e}")
         return pd.DataFrame()
 
 
@@ -95,8 +105,8 @@ st.markdown(
 st.title("Los Angeles Housing Dashboard")
 st.divider()
 
-data = load_data(BQ_QUERY)
-
+#data = load_data(BQ_QUERY)
+data = load_data()
 data["removedDate"] = pd.to_datetime(data["removedDate"], utc=True)
 #%%
 # KPIs

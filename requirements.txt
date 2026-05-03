@@ -7,3 +7,5 @@ requests
 plotly
 streamlit-folium
 db-dtypes
+gcsfs
+pyarrow
